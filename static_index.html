@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Calories Calculator - Your Fitness Journey Starts Here</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static_style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-calculator me-2"></i>
+                Maintenance Calories Calculator
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#calculator"><i class="fas fa-home me-1"></i>Calculator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#diet-info"><i class="fas fa-utensils me-1"></i>Diet Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#protein-foods"><i class="fas fa-dumbbell me-1"></i>Nutrition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about"><i class="fas fa-info-circle me-1"></i>About</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light btn-sm rounded-pill">
+                            <i class="fas fa-user me-1"></i>Login / Sign Up
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold text-white mb-4 animate-fade-in">
+                        Transform Your <span class="text-accent">Fitness Journey</span>
+                    </h1>
+                    <p class="lead text-white mb-4 animate-fade-in-delay">
+                        Calculate your maintenance calories, get personalized workout plans, and achieve your fitness goals with our advanced calculator.
+                    </p>
+                    <div class="d-flex gap-3 animate-fade-in-delay-2">
+                        <button class="btn btn-accent btn-lg rounded-pill px-4" onclick="scrollToCalculator()">
+                            <i class="fas fa-calculator me-2"></i>Start Calculating
+                        </button>
+                        <button class="btn btn-outline-light btn-lg rounded-pill px-4">
+                            <i class="fas fa-play me-2"></i>Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-stats-card animate-slide-up">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-accent mb-0">50K+</h3>
+                                    <small>Users</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-accent mb-0">95%</h3>
+                                    <small>Accuracy</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-accent mb-0">24/7</h3>
+                                    <small>Available</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Calorie Calculator</h2>
+                        <p class="lead text-muted">Enter your details to calculate your daily calorie needs</p>
+                    </div>
+
+                    <div class="calculator-card shadow-lg">
+                        <form id="calorieForm" class="needs-validation" novalidate>
+                            <div class="row g-4">
+                                <!-- Personal Information -->
+                                <div class="col-12">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-user me-2"></i>Personal Information
+                                    </h5>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="height" class="form-label fw-semibold">
+                                        <i class="fas fa-ruler-vertical me-1"></i>Height (cm)
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="height" 
+                                           required min="100" max="250" placeholder="e.g., 175">
+                                    <div class="invalid-feedback">Please enter a valid height (100-250 cm).</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="weight" class="form-label fw-semibold">
+                                        <i class="fas fa-weight me-1"></i>Weight (kg)
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="weight" 
+                                           required min="30" max="300" placeholder="e.g., 70">
+                                    <div class="invalid-feedback">Please enter a valid weight (30-300 kg).</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="age" class="form-label fw-semibold">
+                                        <i class="fas fa-birthday-cake me-1"></i>Age (years)
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="age" 
+                                           required min="15" max="100" placeholder="e.g., 25">
+                                    <div class="invalid-feedback">Please enter a valid age (15-100 years).</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label fw-semibold">
+                                        <i class="fas fa-venus-mars me-1"></i>Gender
+                                    </label>
+                                    <select class="form-select form-select-lg" id="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select your gender.</div>
+                                </div>
+
+                                <!-- Activity Level -->
+                                <div class="col-12 mt-4">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-running me-2"></i>Activity Level
+                                    </h5>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="activityLevel" class="form-label fw-semibold">
+                                        Select your daily activity level
+                                    </label>
+                                    <select class="form-select form-select-lg" id="activityLevel" required>
+                                        <option value="">Choose Activity Level</option>
+                                        <option value="1.2">Sedentary - Little to no exercise</option>
+                                        <option value="1.375">Lightly Active - Light exercise 1-3 days/week</option>
+                                        <option value="1.55">Moderately Active - Moderate exercise 3-5 days/week</option>
+                                        <option value="1.725">Very Active - Hard exercise 6-7 days/week</option>
+                                        <option value="1.9">Extra Active - Very hard exercise & physical job</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select your activity level.</div>
+                                </div>
+
+                                <!-- Workout Planning -->
+                                <div class="col-12 mt-4">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-calendar-alt me-2"></i>Workout Planning
+                                    </h5>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="days" class="form-label fw-semibold">
+                                        <i class="fas fa-calendar-week me-1"></i>Days Available for Gym
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="days" 
+                                           required min="1" max="7" placeholder="e.g., 4">
+                                    <div class="invalid-feedback">Please enter days available (1-7).</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="hours" class="form-label fw-semibold">
+                                        <i class="fas fa-clock me-1"></i>Hours per Day
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="hours" 
+                                           required min="0.5" max="4" step="0.5" placeholder="e.g., 1.5">
+                                    <div class="invalid-feedback">Please enter hours per day (0.5-4).</div>
+                                </div>
+
+                                <!-- Goal Selection -->
+                                <div class="col-12 mt-4">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-target me-2"></i>Your Goal
+                                    </h5>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <input type="radio" class="btn-check" name="goal" id="lose-weight" value="lose">
+                                            <label class="btn btn-outline-danger btn-lg w-100 goal-btn" for="lose-weight">
+                                                <i class="fas fa-arrow-down me-2"></i>
+                                                <div>Lose Weight</div>
+                                                <small>-500 cal/day</small>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" class="btn-check" name="goal" id="maintain-weight" value="maintain" checked>
+                                            <label class="btn btn-outline-success btn-lg w-100 goal-btn" for="maintain-weight">
+                                                <i class="fas fa-equals me-2"></i>
+                                                <div>Maintain Weight</div>
+                                                <small>Maintenance calories</small>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" class="btn-check" name="goal" id="gain-weight" value="gain">
+                                            <label class="btn btn-outline-info btn-lg w-100 goal-btn" for="gain-weight">
+                                                <i class="fas fa-arrow-up me-2"></i>
+                                                <div>Gain Weight</div>
+                                                <small>+500 cal/day</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-5">
+                                    <button type="submit" class="btn btn-accent btn-lg w-100 rounded-pill py-3">
+                                        <i class="fas fa-calculator me-2"></i>
+                                        Calculate My Calories & Get Workout Plan
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section (Hidden by default) -->
+    <div id="results-section" class="py-5 bg-light" style="display: none;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Your Personalized Results</h2>
+                        <p class="lead text-muted">Based on your inputs, here's your customized plan</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Calorie Results -->
+                        <div class="col-lg-6">
+                            <div class="result-card shadow-sm h-100">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-fire me-2"></i>Calorie Breakdown
+                                    </h5>
+                                </div>
+                                <div class="card-body" id="calorie-results">
+                                    <!-- Results will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Workout Plan -->
+                        <div class="col-lg-6">
+                            <div class="result-card shadow-sm h-100">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-dumbbell me-2"></i>Recommended Workout Plan
+                                    </h5>
+                                </div>
+                                <div class="card-body" id="workout-results">
+                                    <!-- Results will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Macronutrient Breakdown -->
+                        <div class="col-12">
+                            <div class="result-card shadow-sm">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-utensils me-2"></i>Daily Macronutrient Targets
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row" id="macro-results">
+                                        <!-- Results will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button class="btn btn-accent btn-lg rounded-pill px-5" onclick="scrollToCalculator()">
+                            <i class="fas fa-calculator me-2"></i>Calculate Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diet Information Section -->
+    <section id="diet-info" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Popular Diet Types</h2>
+                <p class="lead text-muted">Understand different nutrition approaches to reach your goals</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="diet-card shadow-sm h-100">
+                        <div class="diet-icon">
+                            <i class="fas fa-bacon"></i>
+                        </div>
+                        <h5 class="fw-bold">Keto Diet</h5>
+                        <p class="text-muted">High-fat, low-carb diet that aims to induce ketosis for fat burning.</p>
+                        <div class="diet-sources">
+                            <h6>Food Sources:</h6>
+                            <ul class="small">
+                                <li>Meat, fish, eggs</li>
+                                <li>Butter, cheese, nuts</li>
+                                <li>Avocados, seeds</li>
+                                <li>Low-carb vegetables</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="diet-card shadow-sm h-100">
+                        <div class="diet-icon">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <h5 class="fw-bold">High-Carb Diet</h5>
+                        <p class="text-muted">Higher proportion of carbohydrates for energy and performance.</p>
+                        <div class="diet-sources">
+                            <h6>Food Sources:</h6>
+                            <ul class="small">
+                                <li>Whole grains (oats, quinoa)</li>
+                                <li>Fruits and vegetables</li>
+                                <li>Legumes (beans, lentils)</li>
+                                <li>Potatoes, rice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="diet-card shadow-sm h-100">
+                        <div class="diet-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h5 class="fw-bold">Low-Carb Diet</h5>
+                        <p class="text-muted">Restricts carbohydrate intake for weight loss and blood sugar control.</p>
+                        <div class="diet-sources">
+                            <h6>Food Sources:</h6>
+                            <ul class="small">
+                                <li>Non-starchy vegetables</li>
+                                <li>Meat, fish, eggs</li>
+                                <li>Nuts and seeds</li>
+                                <li>Berries (in moderation)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="diet-card shadow-sm h-100">
+                        <div class="diet-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h5 class="fw-bold">Intermittent Fasting</h5>
+                        <p class="text-muted">Cycling between periods of eating and fasting (e.g., 16:8 method).</p>
+                        <div class="diet-sources">
+                            <h6>During Eating Windows:</h6>
+                            <ul class="small">
+                                <li>Lean protein sources</li>
+                                <li>Healthy fats</li>
+                                <li>Fruits and vegetables</li>
+                                <li>Balanced meals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- High-Protein Foods Section -->
+    <section id="protein-foods" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">High-Protein Foods</h2>
+                <p class="lead text-muted">Essential protein sources for muscle building and recovery</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="protein-card shadow-sm h-100">
+                        <div class="protein-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-seedling me-2"></i>Vegetarian Sources
+                            </h5>
+                        </div>
+                        <div class="protein-body">
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Lentils</strong>
+                                    <small>Great source of protein and fiber</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Chickpeas</strong>
+                                    <small>Versatile legume for various dishes</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Tofu</strong>
+                                    <small>Soy-based protein alternative</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Quinoa</strong>
+                                    <small>Complete protein with all amino acids</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Greek Yogurt</strong>
+                                    <small>High protein with probiotics</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-success me-2"></i>
+                                <div>
+                                    <strong>Almonds</strong>
+                                    <small>Protein-rich nuts with healthy fats</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="protein-card shadow-sm h-100">
+                        <div class="protein-header bg-danger text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-drumstick-bite me-2"></i>Non-Vegetarian Sources
+                            </h5>
+                        </div>
+                        <div class="protein-body">
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Chicken Breast</strong>
+                                    <small>Lean source of high-quality protein</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Salmon</strong>
+                                    <small>Rich in omega-3 fatty acids and protein</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Turkey</strong>
+                                    <small>Lean meat high in protein</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Eggs</strong>
+                                    <small>Versatile and affordable protein source</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Tuna</strong>
+                                    <small>Low in fat and high in protein</small>
+                                </div>
+                            </div>
+                            <div class="protein-item">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                <div>
+                                    <strong>Lean Beef</strong>
+                                    <small>Provides essential nutrients and protein</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">About Our Calculator</h2>
+                    <p class="lead mb-4">
+                        Our maintenance calories calculator uses the scientifically proven Mifflin-St Jeor equation 
+                        to provide accurate BMR and calorie calculations tailored to your specific needs.
+                    </p>
+                    
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            Accurate BMR calculations using proven formulas
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            Personalized workout plans based on your schedule
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            Detailed macronutrient breakdown
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            Comprehensive nutrition guidance
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            Free to use, no registration required
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <h3 class="text-primary fw-bold">50,000+</h3>
+                                <p class="mb-0">Happy Users</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <h3 class="text-success fw-bold">95%</h3>
+                                <p class="mb-0">Accuracy Rate</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <h3 class="text-info fw-bold">24/7</h3>
+                                <p class="mb-0">Available</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card text-center">
+                                <h3 class="text-warning fw-bold">Free</h3>
+                                <p class="mb-0">Always</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-calculator me-2"></i>
+                        Maintenance Calories Calculator
+                    </h5>
+                    <p class="text-light mb-4">
+                        Your trusted companion for accurate calorie calculations and personalized fitness planning. 
+                        Start your fitness journey today with science-backed calculations.
+                    </p>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#calculator" class="text-light text-decoration-none">Calculator</a></li>
+                        <li><a href="#diet-info" class="text-light text-decoration-none">Diet Guide</a></li>
+                        <li><a href="#protein-foods" class="text-light text-decoration-none">Nutrition</a></li>
+                        <li><a href="#about" class="text-light text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Connect With Us</h6>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">
+                    &copy; 2024 Maintenance Calories Calculator. All Rights Reserved.
+                    <br>
+                    <small class="text-muted">
+                        This website provides tools to calculate maintenance calories and offers workout plans based on user preferences.
+                    </small>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="static_script.js"></script>
+</body>
+</html>
